@@ -113,7 +113,8 @@ namespace Worker
                 try
                 {
                     Console.Error.WriteLine("Connecting to redis");
-                    return ConnectionMultiplexer.Connect(ipAddress);
+                    var redisPassword = Environment.GetEnvironmentVariable("REDIS_PASSWORD");
+                    return ConnectionMultiplexer.Connect($"{ipAddress},password={redisPassword}");
                 }
                 catch (RedisConnectionException)
                 {
